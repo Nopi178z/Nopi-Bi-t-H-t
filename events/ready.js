@@ -11,9 +11,9 @@ module.exports = async (client) => {
             await rest.put(Routes.applicationCommands(client.user.id), {
                 body: await client.commands,
             });
-            console.log("✅ Commands Loaded Successfully");
+            console.log("✅ Lệnh đã được tải thành công");
         } catch (err) {
-            console.error("❌ Failed to load commands:", err.message);
+            console.error("❌ Không tải được lệnh:", err.message);
         }
     })();
 
@@ -27,7 +27,7 @@ module.exports = async (client) => {
         const activePlayers = Array.from(client.riffy.players.values()).filter(player => player.playing);
 
         if (!activePlayers.length) {
-            //console.log("⏹️ No song is currently playing. Setting default status.");
+            //console.log("⏹️ Hiện không có bài hát nào đang phát. Đang thiết lập trạng thái mặc định.");
             client.user.setActivity(defaultActivity);
             return;
         }
@@ -35,7 +35,7 @@ module.exports = async (client) => {
         const player = activePlayers[0];
 
         if (!player.current || !player.current.info || !player.current.info.title) {
-            //console.log("⚠️ Current track info is missing. Keeping default status.");
+            //console.log("⚠️ Thông tin về bản nhạc hiện tại bị thiếu. Giữ nguyên trạng thái mặc định.");
             return;
         }
 
