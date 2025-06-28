@@ -29,7 +29,7 @@ async function sendMessageWithPermissionsCheck(channel, embed, attachment, actio
         });
         return message;
     } catch (error) {
-        console.error("Error sending message:", error.message);
+        console.error("Lỗi gửi tin nhắn:", error.message);
         const errorEmbed = new EmbedBuilder()
             .setColor('#FF0000')
             .setDescription("⚠️ **Không thể gửi tin nhắn. Kiểm tra quyền của bot.**");
@@ -98,18 +98,18 @@ function initializePlayer(client) {
             const attachment = new AttachmentBuilder(cardPath, { name: 'musicard.png' });
             const embed = new EmbedBuilder()
             .setAuthor({ 
-                name: 'Playing Song..', 
+                name: 'Đang phát bài hát..', 
                 iconURL: musicIcons.playerIcon,
                 url: config.SupportServer
             })
-            .setFooter({ text: `Developed by SSRR | Prime Music v1.2`, iconURL: musicIcons.heartIcon })
+            .setFooter({ text: `Developed by Nopi `, iconURL: musicIcons.heartIcon })
             .setTimestamp()
             .setDescription(  
                 `- **Title:** [${track.info.title}](${track.info.uri})\n` +
                 `- **Author:** ${track.info.author || 'Unknown Artist'}\n` +
                 `- **Length:** ${formatDuration(track.info.length)}\n` +
                 `- **Requester:** ${requester}\n` +
-                `- **Source:** ${track.info.sourceName}\n` + '**- Controls :**\n 🔁 `Loop`, ❌ `Disable`, ⏭️ `Skip`, 🎤 `Lyrics`, 🗑️ `Clear`\n ⏹️ `Stop`, ⏸️ `Pause`, ▶️ `Resume`, 🔊 `Vol +`, 🔉 `Vol -`')
+                `- **Source:** ${track.info.sourceName}\n` + '**- Controls :**\n 🔁 `Vòng lặp`, ❌ `Vô hiệu hóa`, ⏭️ `Skip`, 🎤 `Lyrics`, 🗑️ `Clear`\n ⏹️ `Stop`, ⏸️ `Pause`, ▶️ `Resume`, 🔊 `Vol +`, 🔉 `Vol -`')
             .setImage('attachment://musicard.png')
             .setColor('#FF7A00');
 
@@ -136,7 +136,7 @@ function initializePlayer(client) {
             console.error("Error creating or sending music card:", error.message);
             const errorEmbed = new EmbedBuilder()
                 .setColor('#FF0000')
-                .setDescription("⚠️ **Unable to load track card. Continuing playback...**");
+                .setDescription("⚠️ **Không thể tải thẻ theo dõi. Đang tiếp tục phát lại...**");
             await channel.send({ embeds: [errorEmbed] });
         }
     });
@@ -162,19 +162,19 @@ function initializePlayer(client) {
                 if (!nextTrack) {
                     await cleanupTrackMessages(client, player);
                     player.destroy();
-                    await channel.send("⚠️ **No more tracks to autoplay. Disconnecting...**");
+                    await channel.send("⚠️ **Không còn bản nhạc nào để tự động phát nữa. Đang ngắt kết nối...**");
                 }
             } else {
                 await cleanupTrackMessages(client, player);
                 console.log(`Autoplay is disabled for guild: ${guildId}`);
                 player.destroy();
-                await channel.send("🎶 **Queue has ended. Autoplay is disabled.**");
+                await channel.send("🎶 **Hàng đợi đã kết thúc. Tính năng tự động phát đã bị tắt.**");
             }
         } catch (error) {
             console.error("Error handling autoplay:", error);
             await cleanupTrackMessages(client, player);
             player.destroy();
-            await channel.send("👾**Queue Empty! Disconnecting...**");
+            await channel.send("👾**Hàng đợi trống! Đang ngắt kết nối...**");
         }
     });
 }
@@ -192,7 +192,7 @@ async function cleanupPreviousTrackMessages(channel, guildId) {
                 }
             }
         } catch (error) {
-            console.error("Error cleaning up previous track message:", error);
+            console.error("Lỗi khi dọn dẹp tin nhắn theo dõi trước đó:", error);
         }
     }
 
@@ -327,7 +327,7 @@ async function sendEmbed(channel, message) {
 function adjustVolume(player, channel, amount) {
     const newVolume = Math.min(100, Math.max(10, player.volume + amount));
     if (newVolume === player.volume) {
-        sendEmbed(channel, amount > 0 ? '🔊 **Volume is already at maximum!**' : '🔉 **Volume is already at minimum!**');
+        sendEmbed(channel, amount > 0 ? '🔊 **Âm lượng đã đạt mức tối đa!**' : '🔉 **Âm lượng đã ở mức tối thiểu rồi!**');
     } else {
         player.setVolume(newVolume);
         sendEmbed(channel, `🔊 **Volume changed to ${newVolume}%!**`);
@@ -337,12 +337,12 @@ function adjustVolume(player, channel, amount) {
 
 function toggleLoop(player, channel) {
     player.setLoop(player.loop === "track" ? "queue" : "track");
-    sendEmbed(channel, player.loop === "track" ? "🔁 **Track loop is activated!**" : "🔁 **Queue loop is activated!**");
+    sendEmbed(channel, player.loop === "track" ? "🔁 **Vòng lặp theo dõi đã được kích hoạt!**" : "🔁 **Vòng lặp hàng đợi đã được kích hoạt!**");
 }
 
 function disableLoop(player, channel) {
     player.setLoop("none");
-    sendEmbed(channel, "❌ **Loop is disabled!**");
+    sendEmbed(channel, "❌ **Vòng lặp bị vô hiệu hóa!**");
 }
 
 
@@ -383,7 +383,7 @@ async function getLyrics(trackName, artistName, duration) {
 
         return response.data.syncedLyrics || response.data.plainLyrics;
     } catch (error) {
-        console.error("❌ Lyrics fetch error:", error.response?.data?.message || error.message);
+        console.error("❌ Lỗi tải lời bài hát:", error.response?.data?.message || error.message);
         return null;
     }
 }
@@ -392,7 +392,7 @@ async function getLyrics(trackName, artistName, duration) {
 
 async function showLyrics(channel, player) {
     if (!player || !player.current || !player.current.info) {
-        sendEmbed(channel, "🚫 **No song is currently playing.**");
+        sendEmbed(channel, "🚫 **Hiện tại không có bài hát nào đang phát.**");
         return;
     }
 
@@ -400,7 +400,7 @@ async function showLyrics(channel, player) {
     const lyrics = await getLyrics(track.title, track.author, Math.floor(track.length / 1000));
 
     if (!lyrics) {
-        sendEmbed(channel, "❌ **Lyrics not found!**");
+        sendEmbed(channel, "❌ **Lời bài hát không được tìm thấy!**");
         return;
     }
 
@@ -410,17 +410,17 @@ async function showLyrics(channel, player) {
 
     const embed = new EmbedBuilder()
         .setTitle(`🎵 Live Lyrics: ${track.title}`)
-        .setDescription("🔄 Syncing lyrics...")
+        .setDescription("🔄 Đang đồng bộ hóa lời bài hát...")
         .setColor(config.embedColor);
 
     const stopButton = new ButtonBuilder()
         .setCustomId("stopLyrics")
-        .setLabel("Stop Lyrics")
+        .setLabel("Dừng Lại Lời bài hát")
         .setStyle(ButtonStyle.Danger);
 
     const fullButton = new ButtonBuilder()
         .setCustomId("fullLyrics")
-        .setLabel("Full Lyrics")
+        .setLabel("Lời bài hát đầy đủ")
         .setStyle(ButtonStyle.Primary);
 
     const row = new ActionRowBuilder().addComponents(fullButton, stopButton);
@@ -470,7 +470,7 @@ async function showLyrics(channel, player) {
     
             const deleteButton = new ButtonBuilder()
                 .setCustomId("deleteLyrics")
-                .setLabel("Delete")
+                .setLabel("Xóa bỏ")
                 .setStyle(ButtonStyle.Danger);
     
             const deleteRow = new ActionRowBuilder().addComponents(deleteButton);
