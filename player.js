@@ -133,7 +133,7 @@ function initializePlayer(client) {
             }
 
         } catch (error) {
-            console.error("Error creating or sending music card:", error.message);
+            console.error("Lỗi khi tạo hoặc gửi thẻ nhạc:", error.message);
             const errorEmbed = new EmbedBuilder()
                 .setColor('#FF0000')
                 .setDescription("⚠️ **Không thể tải thẻ theo dõi. Đang tiếp tục phát lại...**");
@@ -166,12 +166,12 @@ function initializePlayer(client) {
                 }
             } else {
                 await cleanupTrackMessages(client, player);
-                console.log(`Autoplay is disabled for guild: ${guildId}`);
+                console.log(`Tự động phát bị vô hiệu hóa đối với bang hội: ${guildId}`);
                 player.destroy();
                 await channel.send("🎶 **Hàng đợi đã kết thúc. Tính năng tự động phát đã bị tắt.**");
             }
         } catch (error) {
-            console.error("Error handling autoplay:", error);
+            console.error("Lỗi xử lý phát tự động:", error);
             await cleanupTrackMessages(client, player);
             player.destroy();
             await channel.send("👾**Hàng đợi trống! Đang ngắt kết nối...**");
@@ -298,15 +298,15 @@ async function handleInteraction(i, player, channel) {
                 await sendEmbed(channel, '⏸️ **Phát lại đã bị tạm dừng!**');
             } else {
                 player.pause(true);
-                await sendEmbed(channel, '⏸️ **Phát lại đã tiếp tục!**');
+                await sendEmbed(channel, '⏸️ **Phát lại đã bị tạm dừng!**');
             }
             break;
         case 'resumeTrack':
             if (!player.paused) {
-                await sendEmbed(channel, '▶️ **Playback is already resumed!**');
+                await sendEmbed(channel, '▶️ **Đã tiếp tục phát lại!**');
             } else {
                 player.pause(false);
-                await sendEmbed(channel, '▶️ **Playback has been resumed!**');
+                await sendEmbed(channel, '▶️ **Đã tiếp tục phát lại!**');
             }
             break;
         case 'volumeUp':
