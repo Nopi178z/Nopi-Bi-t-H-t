@@ -30,9 +30,9 @@ async function connectToDatabase() {
     }
 }
 
-const db = client ? client.db("PrimeMusicSSRR") : null;
-const playlistCollection = db ? db.collection("SongPlayLists") : null;
-const autoplayCollection = db ? db.collection("AutoplaySettings") : null;
+const db = client ? client.db("Âm nhạc hàng đầu") : null;
+const playlistCollection = db ? db.collection("Danh sách bài hát") : null;
+const autoplayCollection = db ? db.collection("Tự động phát Cài đặt") : null;
 
 module.exports = {
     connectToDatabase,
