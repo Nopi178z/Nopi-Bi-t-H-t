@@ -154,14 +154,14 @@ module.exports = {
   play: {
     embed: {
         error: "Error",
-        noVoiceChannel: "- You need to be in a voice channel to use this command.",
-        noLavalinkNodes: "- No available Lavalink nodes to process the request.",
-        noResults: "- No results found.",
-        requestUpdated: "Request Updated!",
-        successProcessed: "- Your request has been successfully processed.\n- Please use buttons to control playback",
-        errorProcessing: "- An error occurred while processing your request."
+        noVoiceChannel: "- Bạn cần phải ở trong kênh thoại để sử dụng lệnh này.",
+        noLavalinkNodes: "- Không có nút Lavalink nào có sẵn để xử lý yêu cầu.",
+        noResults: "- Không tìm thấy kết quả nào.",
+        requestUpdated: "Yêu cầu đã cập nhật!",
+        successProcessed: "- Yêu cầu của bạn đã được xử lý thành công.\n- Vui lòng sử dụng các nút để điều khiển phát lại",
+        errorProcessing: "- Đã xảy ra lỗi khi xử lý yêu cầu của bạn."
     },
-    commandDescription: "Enter song name / link or playlist"
+    commandDescription: "Nhập tên bài hát / liên kết hoặc danh sách phát"
   },
   playCustomPlaylist: {
     embed: {
