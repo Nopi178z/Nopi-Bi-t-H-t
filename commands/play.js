@@ -37,7 +37,7 @@ async function getSpotifyPlaylistTracks(playlistId) {
 
         return tracks;
     } catch (error) {
-        console.error("Error fetching Spotify playlist tracks:", error);
+        console.error("Lỗi khi tải các bản nhạc trong danh sách phát Spotify:", error);
         return [];
     }
 }
@@ -102,7 +102,7 @@ async function play(client, interaction, lang) {
                 }
             } catch (err) {
                 console.error('Error fetching Spotify data:', err);
-                await interaction.followUp({ content: "❌ Failed to fetch Spotify data." });
+                await interaction.followUp({ content: "❌ Không thể tải dữ liệu Spotify." });
                 return;
             }
         } else {
@@ -175,18 +175,18 @@ async function play(client, interaction, lang) {
     
 
     } catch (error) {
-        console.error('Error processing play command:', error);
-        await interaction.followUp({ content: "❌ An error occurred while processing the request." });
+        console.error('Lỗi khi xử lý lệnh phát:', error);
+        await interaction.followUp({ content: "❌ Đã xảy ra lỗi khi xử lý yêu cầu." });
     }
 }
 
 module.exports = {
     name: "play",
-    description: "Play a song from a name or link",
+    description: "Phát một bài hát từ tên hoặc liên kết",
     permissions: "0x0000000000000800",
     options: [{
         name: 'name',
-        description: 'Enter song name / link or playlist',
+        description: 'Nhập tên bài hát / liên kết hoặc danh sách phát',
         type: ApplicationCommandOptionType.String,
         required: true
     }],
