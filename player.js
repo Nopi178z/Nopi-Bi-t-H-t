@@ -18,7 +18,7 @@ async function sendMessageWithPermissionsCheck(channel, embed, attachment, actio
             !permissions.has(PermissionsBitField.Flags.EmbedLinks) ||
             !permissions.has(PermissionsBitField.Flags.AttachFiles) ||
             !permissions.has(PermissionsBitField.Flags.UseExternalEmojis)) {
-            console.error("Bot lacks necessary permissions to send messages in this channel.");
+            console.error("Bot không có đủ quyền cần thiết để gửi tin nhắn trong kênh này.");
             return;
         }
 
@@ -32,7 +32,7 @@ async function sendMessageWithPermissionsCheck(channel, embed, attachment, actio
         console.error("Error sending message:", error.message);
         const errorEmbed = new EmbedBuilder()
             .setColor('#FF0000')
-            .setDescription("⚠️ **Unable to send message. Check bot permissions.**");
+            .setDescription("⚠️ **Không thể gửi tin nhắn. Kiểm tra quyền của bot.**");
         await channel.send({ embeds: [errorEmbed] });
     }
 }
@@ -215,7 +215,7 @@ async function cleanupTrackMessages(client, player) {
                 }
             }
         } catch (error) {
-            console.error("Error cleaning up track message:", error);
+            console.error("Lỗi khi dọn dẹp thông báo theo dõi:", error);
         }
     }
 
@@ -253,7 +253,7 @@ function setupCollector(client, player, channel, message) {
         if (!voiceChannel || voiceChannel.id !== playerChannel) {
             const vcEmbed = new EmbedBuilder()
                 .setColor(config.embedColor)
-                .setDescription('🔒 **You need to be in the same voice channel to use the controls!**');
+                .setDescription('🔒 **Bạn cần phải ở cùng một kênh thoại để sử dụng các nút điều khiển!**');
             const sentMessage = await channel.send({ embeds: [vcEmbed] });
             setTimeout(() => sentMessage.delete().catch(console.error), config.embedTimeout * 1000);
             return;
@@ -276,7 +276,7 @@ async function handleInteraction(i, player, channel) {
             break;
         case 'skipTrack':
             player.stop();
-            await sendEmbed(channel, "⏭️ **Player will play the next song!**");
+            await sendEmbed(channel, "⏭️ **Người chơi sẽ phát bài hát tiếp theo!**");
             break;
         case 'disableLoop':
             disableLoop(player, channel);
@@ -286,19 +286,19 @@ async function handleInteraction(i, player, channel) {
             break;
         case 'clearQueue':
             player.queue.clear();
-            await sendEmbed(channel, "🗑️ **Queue has been cleared!**");
+            await sendEmbed(channel, "🗑️ **Hàng đợi đã được xóa!**");
             break;
         case 'stopTrack':
             player.stop();
             player.destroy();
-            await sendEmbed(channel, '⏹️ **Playback has been stopped and player destroyed!**');
+            await sendEmbed(channel, '⏹️ **Quá trình phát đã dừng lại và trình phát đã bị hủy!**');
             break;
         case 'pauseTrack':
             if (player.paused) {
-                await sendEmbed(channel, '⏸️ **Playback is already paused!**');
+                await sendEmbed(channel, '⏸️ **Phát lại đã bị tạm dừng!**');
             } else {
                 player.pause(true);
-                await sendEmbed(channel, '⏸️ **Playback has been paused!**');
+                await sendEmbed(channel, '⏸️ **Phát lại đã tiếp tục!**');
             }
             break;
         case 'resumeTrack':
