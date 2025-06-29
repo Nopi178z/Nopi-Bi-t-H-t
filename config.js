@@ -3,7 +3,7 @@
 module.exports = {
   TOKEN: "",
   language: "en",
-  ownerID: ["1004206704994566164", ""], 
+  ownerID: ["1048110276576288798", ""], 
   mongodbUri : "mongodb+srv://nopi:nopi@discordbot.ly6shka.mongodb.net/?retryWrites=true&w=majority",
   spotifyClientId : "",
   spotifyClientSecret : "",
@@ -17,10 +17,10 @@ module.exports = {
   errorLog: "", 
   nodes: [
      {
-      name: "GlaceYT",
-      password: "glaceyt",
-      host: "5.39.63.207",
-      port:  8262,
+      name: "Nopi",
+      password: "nopi",
+      host: "194.102.181.219",
+      port:  2581,
       secure: false
     }
   ]
